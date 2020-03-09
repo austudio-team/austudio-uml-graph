@@ -1,0 +1,80 @@
+@startuml
+
+left to right direction
+
+skinparam linetype ortho
+
+rectangle "AuStudio" {
+  package "页面呈现"{
+  }
+  package "浏览器渲染" {
+  }
+  package "CDN加速/缓存"{
+  }
+  package "Webpack"{
+    rectangle "Bable编译" {
+    }
+    rectangle "压缩" {
+    }
+  }
+  package "业务模块"{
+    rectangle "素材管理模块"{ 
+    }
+    rectangle "轨道管理模块"{ 
+    }
+    rectangle "音频剪辑模块"{ 
+    }
+    rectangle "音频可视化模块"{ 
+    }
+  }
+  package "公共组件库"{
+    rectangle "layout"{
+    }
+    rectangle "pannels"{
+    }
+    rectangle "tooltips"{
+    }
+    rectangle " ... " {
+    }
+  }
+  package "公共函数"{
+    rectangle "hooks"{
+    }
+    rectangle "时间处理函数"{
+    }
+    rectangle "事件总线函数"{
+    }
+  }
+  package "音效处理模块"{
+    rectangle "混响模块"{ 
+    }
+    rectangle "均衡器模块"{ 
+    }
+    rectangle "颤音模块"{ 
+    }
+    rectangle "延迟模块"{ 
+    }
+    rectangle "过滤器模块"{ 
+    }
+  }
+  package "React"{
+    rectangle "react"{ 
+    }
+    rectangle "react-dom"{ 
+    }
+    rectangle "React Hooks"{ 
+    }
+  }
+  package "Redux"{
+    rectangle "action"{
+    }
+    rectangle "reducers"{
+    }
+    rectangle "sagas"{
+    }
+    rectangle "selectors"{
+    }
+  }
+}
+
+@enduml
