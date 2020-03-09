@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+
+skinparam linetype ortho
+
+package "AuStudio" {
+  cloud {
+    rectangle "Cloudflare CDN" as CDN {
+      [反 DDoS]
+      [加速静态文件分发]
+    }
+    rectangle "Vutlr Cloud VPS\n1024MB RAM, 1 Core, 32G SSD" {
+      [nginx/1.10.3]
+    }
+  }
+
+  Node "用户的计算机" {
+    [Chrome/76.0] as Computer
+  }
+
+  [nginx/1.10.3] --> CDN : 透明反向代理
+  CDN --> Computer : HTTP+TLS
+}
+
+@enduml
