@@ -1,0 +1,35 @@
+@startuml
+actor User
+
+User -> AudioChannel: double click name area
+activate AudioChannel
+AudioChannel -> AudioChannel: doubleClickHandler
+activate AudioChannel
+AudioChannel -> AudioChannel: setEditing(true)
+AudioChannel -> ChannelNameInput: render
+deactivate AudioChannel
+
+User -> ChannelNameInput: input
+alt press Enter key
+  User -> ChannelNameInput: press Enter key
+  activate ChannelNameInput
+  ChannelNameInput -> ChannelNameInput: keyDownHandler
+  note right: detect enter key
+  activate AudioChannel
+  ChannelNameInput -> AudioChannel: blurHandler(newName)
+  AudioChannel -> AudioChannel: setEditing(false)
+  AudioChannel -> ChannelAction: renameChannel(channelId, newName)
+  deactivate AudioChannel
+  deactivate ChannelNameInput
+else click outside
+  User -> ChannelNameInput: blur
+  activate AudioChannel
+  ChannelNameInput -> AudioChannel: blurHandler(newName)
+  AudioChannel -> AudioChannel: setEditing(false)
+  AudioChannel -> ChannelAction: renameChannel(channelId, newName)
+  deactivate AudioChannel
+  deactivate ChannelNameInput
+end
+deactivate AudioChannel
+
+@enduml

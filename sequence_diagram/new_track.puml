@@ -1,0 +1,21 @@
+@startuml
+actor User
+
+User -> ControlBar: Click
+activate ControlBar
+ControlBar -> ChannelAction: addChannel(0)
+deactivate ControlBar
+
+User -> AudioChannel: Right Click
+activate AudioChannel
+AudioChannel -> AudioChannel: contextMenuHandler
+
+activate ContextMenu
+AudioChannel -> ContextMenu: render
+User -> ContextMenu: Click "Insert Above" / "Insert Below"
+ContextMenu -> AudioChannel: insertBelowHandler/insertAboveHandler
+AudioChannel -> ChannelAction: addChannel(index +/- 1)
+deactivate ContextMenu
+deactivate AudioChannel
+
+@enduml

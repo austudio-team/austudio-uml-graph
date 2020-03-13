@@ -1,0 +1,17 @@
+@startuml
+actor User
+
+User -> AudioChannel: Right Click
+activate AudioChannel
+AudioChannel -> AudioChannel: contextMenuHandler
+note right: compute self is first or last channel
+
+activate ContextMenu
+AudioChannel -> ContextMenu: render
+User -> ContextMenu: Click "Move Up" / "Move Down"
+ContextMenu -> AudioChannel: moveUpHandler / moveDownHandler
+deactivate ContextMenu
+AudioChannel -> ChannelAction: moveChannel(index, index +/- 1)
+deactivate AudioChannel
+
+@enduml
