@@ -13,6 +13,6 @@ EventEmitter -> AudioController: selectFile()
 deactivate EventEmitter
 activate AudioController
 AudioController -> LibraryAction: addAudio()
-Editor -> AudioController: addAudioToLibrary()
+Editor -> AudioController: handleFile()
 deactivate Editor
 @enduml

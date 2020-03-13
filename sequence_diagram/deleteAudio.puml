@@ -1,0 +1,9 @@
+@startuml
+actor User
+
+User -> FunctionBarAction: toggleLibrary()
+activate FunctionBarAction
+FunctionBarAction -> LibraryAction: deleteAudio()
+deactivate FunctionBarAction
+activate LibraryAction
+@enduml
