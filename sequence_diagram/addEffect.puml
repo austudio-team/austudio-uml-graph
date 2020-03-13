@@ -1,0 +1,8 @@
+@startuml
+actor User
+
+User -> Dropdown: handleAddEffect()
+activate Dropdown
+Dropdown -> AudioEffectAction: addEffect()
+deactivate Dropdown
+@enduml

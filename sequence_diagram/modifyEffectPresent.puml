@@ -1,0 +1,11 @@
+@startuml
+actor User
+
+User -> Dropdown: handleEffectClick()
+activate Dropdown
+Dropdown -> EffectPanel: handlePresentChange()
+deactivate Dropdown
+activate EffectPanel
+EffectPanel -> AudioEffectAction: modifyEffectPresent()
+deactivate EffectPanel
+@enduml
