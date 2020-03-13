@@ -1,0 +1,29 @@
+@startuml
+actor User
+
+User -> AudioChannel: click solo button
+activate AudioChannel
+AudioChannel -> AudioChannel: handleSolo()
+AudioChannel -> ChannelAction: updateSolo(channelId, !solo)
+deactivate
+
+User -> AudioChannel: click mute button
+activate AudioChannel
+AudioChannel -> AudioChannel: handleMute()
+AudioChannel -> ChannelAction: updateMute(channelId, !mute)
+deactivate
+
+User -> AudioChannel: click record button
+activate AudioChannel
+AudioChannel -> AudioChannel: handleRecord()
+AudioChannel -> ChannelAction: updateRecord(channelId, !record)
+note right
+  如果目标 record 为 true，
+  在 reducer 中检查是否有
+  其他轨道也为录音轨道，并
+  去除其他轨道的录音属性
+end note
+deactivate
+
+
+@enduml
