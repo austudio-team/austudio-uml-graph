@@ -1,0 +1,9 @@
+@startuml
+actor User
+
+User -> AudioChannel: drag pan slider
+activate AudioChannel
+AudioChannel -> AudioChannel: panHandler()
+AudioChannel -> ChannelAction: updatePan()
+
+@enduml

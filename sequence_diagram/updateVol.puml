@@ -1,0 +1,9 @@
+@startuml
+actor User
+
+User -> AudioChannel: drag vol slider
+activate AudioChannel
+AudioChannel -> AudioChannel: volHandler()
+AudioChannel -> ChannelAction: updateVol()
+
+@enduml
