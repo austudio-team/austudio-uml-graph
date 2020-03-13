@@ -1,0 +1,6 @@
+@startuml
+User -> MenuItem: Click
+MenuItem -> MenuItem: clickHandler
+MenuItem -> EventEmitter: emit('MENU_EXPORT')
+EventEmitter -> AudioController
+@enduml
