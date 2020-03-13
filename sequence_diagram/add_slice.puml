@@ -1,0 +1,33 @@
+@startuml
+actor User
+
+User -> FunctionBar: click library button
+FunctionBar -> FunctionBarAction: toggleLibrary()
+FunctionBarAction -> AudioManage: render
+AudioManage -> AudioItem: render
+
+User -> AudioItem: drag
+activate AudioItem
+AudioItem -> AudioItem: onDragHanlder()
+AudioItem -> LibraryAction: libraryDragStart(audioId)
+
+User -> Track: move mouse
+activate Track
+Track -> Track: dragOverHandler()
+deactivate
+
+User -> Track: drop
+activate Track
+Track -> Track: dropHandler()
+activate Track
+Track -> EditorAction: audioDrop(channelId, offset)
+EditorAction -> EditorSaga: audioDropToSlice()
+EditorSaga -> ChannelAction: createSlice()
+deactivate Track
+deactivate Track
+
+AudioItem -> EditorAction: libraryDragEnd()
+deactivate AudioItem
+
+
+@enduml
