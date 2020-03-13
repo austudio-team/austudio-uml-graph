@@ -1,6 +1,19 @@
 @startuml
+actor User
+
 User -> MenuItem: Click
+activate MenuItem
 MenuItem -> MenuItem: clickHandler
+activate EventEmitter
 MenuItem -> EventEmitter: emit('MENU_EXPORT')
-EventEmitter -> AudioController
+deactivate MenuItem
+EventEmitter -> AudioController: export()
+deactivate EventEmitter
+activate AudioController
+AudioController -> AudioController: generateAudioGraph()
+AudioController -> Browser: URL.createObjectURL(AudioArrayBuffer)
+AudioController <-- Browser: AudioBufferUrl: string
+AudioController -> Browser: HTMLAnchorElement.click()
+deactivate AudioController
+Browser --> User: Save file dialog
 @enduml
