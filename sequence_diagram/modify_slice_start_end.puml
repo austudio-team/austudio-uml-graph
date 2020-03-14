@@ -1,0 +1,40 @@
+@startuml
+actor User
+
+User -> AudioBlock: user mouse down on stretch area
+activate AudioBlock
+AudioBlock -> AudioBlock: stretcherMouseDownHandler()
+activate AudioBlock
+AudioBlock -> AudioBlock: initDrag(e)
+AudioBlock -> AudioBlock: setStretching('left' | 'right')
+AudioBlock -> AudioBlock: stretchingEffect
+note right: compute params and update block width and offset
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse move
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseMoveEffect()
+activate AudioBlock
+alt Mouse is in screen left or right
+  AudioBlock -> EventEmitter: emit('editorRequestAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+else Mouse is in middle area
+  AudioBlock -> EventEmitter: emit('editorCancelAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+end
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse up
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseUpEffect()
+activate AudioBlock
+  AudioBlock -> EventEmitter: emit('editorCancelAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+  AudioBlock -> EventEmitter: setStretching(false)
+  AudioBlock -> ChannelAction: updateSlice()
+deactivate AudioBlock
+deactivate AudioBlock
+
+@enduml
