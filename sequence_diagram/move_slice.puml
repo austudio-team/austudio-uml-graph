@@ -1,0 +1,40 @@
+@startuml
+actor User
+
+User -> AudioBlock: user mouse down on block
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseDownHandler()
+activate AudioBlock
+AudioBlock -> AudioBlock: setDragging(true)
+AudioBlock -> AudioBlock: initDrag(e)
+AudioBlock -> AudioBlock: draggingEffect
+note right: track block pos update
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse move
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseMoveEffect()
+activate AudioBlock
+alt Mouse is in screen left or right
+  AudioBlock -> EventEmitter: emit('editorRequestAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+else Mouse is in middle area
+  AudioBlock -> EventEmitter: emit('editorCancelAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+end
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse up
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseUpEffect()
+activate AudioBlock
+  AudioBlock -> EventEmitter: emit('editorCancelAutoScrollX')
+  EventEmitter -> Editor: autoScrollXEffect
+  AudioBlock -> EventEmitter: setDragging(false)
+  AudioBlock -> ChannelAction: updateSlice()
+deactivate AudioBlock
+deactivate AudioBlock
+
+@enduml
