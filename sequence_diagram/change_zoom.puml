@@ -1,0 +1,14 @@
+@startuml
+actor User
+
+User -> ZoomSlider: drag zoom slider
+activate ZoomSlider
+ZoomSlider -> ZoomSlider: handleZoomChange(zoom)
+ZoomSlider -> EditorAction: updateZoom(zoom)
+deactivate ZoomSlider
+EditorAction -> Editor: zoomChangeEffect()
+EditorAction -> Editor: rerenderIndicator()
+EditorAction -> Track: rerender
+EditorAction -> AudioBlock: rerender
+
+@enduml

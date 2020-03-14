@@ -3,16 +3,22 @@ actor User
 
 User -> MenuItem: Click
 activate MenuItem
-User -> Editor: audioFileDropHandler ()
 activate Editor
 MenuItem -> MenuItem: clickHandler
 activate EventEmitter
 MenuItem -> EventEmitter: emit('MENU_IMPORT')
+deactivate Editor
 deactivate MenuItem
 EventEmitter -> AudioController: selectFile()
-deactivate EventEmitter
 activate AudioController
 AudioController -> LibraryAction: addAudio()
+deactivate AudioController
+deactivate EventEmitter
+User -> Editor: audioFileDropHandler ()
+activate Editor
 Editor -> AudioController: handleFile()
+activate AudioController
+AudioController -> LibraryAction: addAudio()
+deactivate AudioController
 deactivate Editor
 @enduml

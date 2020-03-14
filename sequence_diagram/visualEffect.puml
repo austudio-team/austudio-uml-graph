@@ -1,0 +1,30 @@
+@startuml
+actor User
+
+participant AudioBlock order 20
+participant AudioController order 30
+
+User -> AudioBlock: user drop a audio slice
+activate AudioBlock
+AudioBlock -> AudioBlock: refreshGraph()
+group Refresh Graph Process
+activate AudioBlock
+AudioBlock -> AudioController: generateVisualGraph()
+AudioController --> AudioBlock: graphBlob
+deactivate AudioBlock
+end
+deactivate AudioBlock
+User -> EditorAction: updateZoom()
+activate EditorAction
+EditorAction -> AudioBlock: refreshGraph()
+deactivate EditorAction
+
+User -> AudioBlock: stretch slice
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseUpEffect()
+activate AudioBlock
+AudioBlock -> AudioBlock: refreshGraph()
+deactivate AudioBlock
+deactivate AudioBlock
+
+@enduml

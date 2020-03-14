@@ -1,0 +1,27 @@
+@startuml
+actor User
+
+User -> ControlBar: click record button
+activate ControlBar
+ControlBar -> ControlBar: handleRecordClick()
+activate ControlBar
+ControlBar -> FunctionBarAction: requestRecord()
+ControlBar -> ControlBar: handlePlayClick()
+ControlBar -> AudioContoller: startRecord()
+deactivate ControlBar
+deactivate ControlBar
+
+User -> ControlBar: click record button
+activate ControlBar
+ControlBar -> ControlBar: handleRecordClick()
+activate ControlBar
+ControlBar -> FunctionBarAction: stopRecord()
+ControlBar -> ControlBar: handlePauseClick()
+ControlBar -> AudioContoller: stopRecord()
+deactivate ControlBar
+deactivate ControlBar
+activate AudioContoller
+AudioContoller -> LibraryAction: addAudio()
+AudioContoller -> ChannelAction: createSlice()
+
+@enduml

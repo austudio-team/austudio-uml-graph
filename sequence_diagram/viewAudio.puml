@@ -1,0 +1,10 @@
+@startuml
+actor User
+
+User -> FunctionBarAction: click library button
+activate FunctionBarAction
+FunctionBarAction -> LibraryAction: toggleLibrary()
+deactivate FunctionBarAction
+LibraryAction -> AudioManage: render
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+actor User
+
+participant EventEmitter order 30
+
+User -> Editor: indicatorMouseDown()
+activate Editor
+Editor -> Editor: setDragging(true)
+deactivate Editor
+User -> Editor: mouseMoveEffect()
+activate Editor
+alt Mouse is in screen left or right
+  Editor -> EventEmitter: emit('editorRequestAutoScrollX')
+  activate EventEmitter
+  EventEmitter -> Editor: autoScrollXEffect
+deactivate EventEmitter
+else Mouse is in middle area
+  Editor -> EventEmitter: emit('editorCancelAutoScrollX')
+  activate EventEmitter
+  EventEmitter -> Editor: autoScrollXEffect
+deactivate EventEmitter
+end
+Editor -> Editor: rerenderIndicator(true)
+activate Editor
+Editor -> EventEmitter: editorIndicatorShouldChange()
+deactivate Editor
+activate EventEmitter
+EventEmitter -> AudioController: changeProgress(0)
+EventEmitter -> ControlBar: indicatorChangeEffect
+deactivate EventEmitter
+deactivate Editor
+
+@enduml

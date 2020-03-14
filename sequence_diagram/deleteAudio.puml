@@ -1,9 +1,17 @@
 @startuml
 actor User
 
-User -> FunctionBarAction: toggleLibrary()
+User -> FunctionBarAction: click library button
 activate FunctionBarAction
-FunctionBarAction -> LibraryAction: deleteAudio()
+FunctionBarAction -> LibraryAction: toggleLibrary()
 deactivate FunctionBarAction
+LibraryAction -> AudioManage: render
+
+User -> AudioManage: click delete button
+activate AudioManage
+AudioManage -> LibraryAction: deleteAudio()
 activate LibraryAction
+LibraryAction -> ChannelSaga: deleteAudiosSliceEffect()
+deactivate LibraryAction
+deactivate AudioManage
 @enduml

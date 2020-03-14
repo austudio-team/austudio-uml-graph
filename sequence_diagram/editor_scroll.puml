@@ -1,0 +1,71 @@
+@startuml
+actor User
+participant Editor order 20
+participant EventEmitter order 30
+
+User -> HorizontalScroll: mouse down on scrollbar
+note left: User drag horizontal scrollbar
+activate HorizontalScroll
+HorizontalScroll -> HorizontalScroll: handleMouseDown()
+activate HorizontalScroll
+HorizontalScroll -> HorizontalScroll: setDragging(true)
+deactivate HorizontalScroll
+deactivate HorizontalScroll
+
+User -> HorizontalScroll: mouse move
+activate HorizontalScroll
+HorizontalScroll -> HorizontalScroll: mouseMoveEffect
+HorizontalScroll -> EventEmitter: emit('editorScrollXShouldChange')
+EventEmitter -> Editor: scrollXShouldChangeEffect
+activate Editor
+Editor -> Editor: scrollXUpdater()
+Editor -> Editor: rerenderScroll()
+activate Editor
+Editor -> Editor: rerenderIndicator()
+deactivate Editor
+deactivate Editor
+deactivate HorizontalScroll
+
+User -> HorizontalScroll: mouse down on scrollbar
+note left: User drag vertical scrollbar
+activate HorizontalScroll
+HorizontalScroll -> HorizontalScroll: handleMouseDown()
+activate HorizontalScroll
+HorizontalScroll -> HorizontalScroll: setDragging(true)
+deactivate HorizontalScroll
+deactivate HorizontalScroll
+
+User -> VerticalScroll: mouse move
+activate VerticalScroll
+VerticalScroll -> VerticalScroll: mouseMoveEffect
+VerticalScroll -> EventEmitter: emit('editorScrollYShouldChange')
+EventEmitter -> Editor: scrollYShouldChangeEffect
+activate Editor
+Editor -> Editor: scrollYUpdater()
+Editor -> Editor: rerenderScroll()
+deactivate Editor
+deactivate HorizontalScroll
+
+User -> Editor: mouse wheel or touchpad in editor
+note left
+  User use touchpad or
+  mousewheel in editor
+end note
+activate Editor
+Editor -> Editor: mouseWheelEffect
+activate Editor
+Editor -> Editor: scrollXUpdater(e.deltaX)
+activate Editor
+Editor -> EventEmitter: emit('editorScrollXChanged')
+EventEmitter -> HorizontalScroll: editorScrollXChangedEffect
+deactivate Editor
+Editor -> Editor: scrollYUpdater(e.deltaY)
+activate Editor
+Editor -> EventEmitter: emit('editorScrollYChanged')
+EventEmitter -> VerticalScroll: editorScrollYChangedEffect
+deactivate Editor
+Editor -> Editor: renderScroll()
+deactivate Editor
+deactivate Editor
+
+@enduml

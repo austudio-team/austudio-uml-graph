@@ -1,0 +1,22 @@
+@startuml
+actor User
+
+participant EventEmitter order 30
+
+User -> ControlBar: click stop button
+activate ControlBar
+ControlBar -> ControlBar: handleStopClick()
+activate ControlBar
+ControlBar -> ControlBar: requestPause()
+ControlBar -> EventEmitter: emit('requestStop')
+EventEmitter -> Editor: stopEffect
+deactivate ControlBar
+activate Editor
+Editor -> EventEmitter: editorIndicatorShouldChange(0)
+deactivate Editor
+activate EventEmitter
+EventEmitter -> AudioController: changeProgress(0)
+EventEmitter -> ControlBar: indicatorChangeEffect
+deactivate EventEmitter
+
+@enduml

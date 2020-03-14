@@ -1,10 +1,16 @@
 @startuml
 actor User
 
+User -> AudioChannel: showDropdown()
+activate AudioChannel
+AudioChannel -> Dropdown: render
+deactivate AudioChannel
 User -> Dropdown: handleEffectClick()
 activate Dropdown
-Dropdown -> EffectPanel: handleEffectChange()
+Dropdown -> EffectPanel: render
 deactivate Dropdown
+
+User -> EffectPanel: handleEffectChange()
 activate EffectPanel
 EffectPanel -> AudioEffectAction: modifyEffect()
 deactivate EffectPanel

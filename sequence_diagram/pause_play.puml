@@ -1,0 +1,16 @@
+@startuml
+actor User
+
+User -> ControlBar: click pause button
+activate ControlBar
+ControlBar -> ControlBar: handlePauseClick()
+ControlBar -> FunctionBarAction: requestPause()
+ControlBar -> EventEmitter: emit('requestPause')
+activate EventEmitter
+EventEmitter -> AudioController: pause()
+deactivate ControlBar
+EventEmitter -> Editor: pauseEffect()
+deactivate Editor
+deactivate EventEmitter
+
+@enduml
