@@ -1,0 +1,43 @@
+@startuml
+actor User
+
+User -> FunctionBar: click cut button
+activate FunctionBar
+FunctionBar -> FunctionBar: cursorTypeClickHandler()
+activate FunctionBar
+FunctionBar -> FunctionBarAction: toggleCursorType('cut')
+deactivate FunctionBar
+deactivate FunctionBar
+
+User -> AudioBlock: mouse enter
+activate AudioBlock
+AudioBlock -> AudioBlock: cutMouseOverHandler()
+activate AudioBlock
+AudioBlock -> AudioBlock: setCutHover(true)
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse move in audio block
+activate AudioBlock
+AudioBlock -> AudioBlock: cutMouseMoveHandler()
+note right: update indicator pos
+deactivate AudioBlock
+
+User -> AudioBlock: click in audio block
+activate AudioBlock
+AudioBlock -> AudioBlock: mouseDownHandler()
+activate AudioBlock
+AudioBlock -> ChannelAction: splitSlice(channelId, sliceId, offset)
+deactivate AudioBlock
+deactivate AudioBlock
+
+User -> AudioBlock: mouse move out
+activate AudioBlock
+AudioBlock -> AudioBlock: cutMouseLeaveHandler()
+activate AudioBlock
+AudioBlock -> AudioBlock: setCutHover(false)
+deactivate AudioBlock
+deactivate AudioBlock
+
+
+@enduml
