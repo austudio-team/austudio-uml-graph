@@ -9,8 +9,6 @@ ControlBar -> EventEmitter: emit('requestPause')
 activate EventEmitter
 EventEmitter -> AudioController: pause()
 deactivate ControlBar
-EventEmitter -> Editor: pauseEffect()
-deactivate Editor
 deactivate EventEmitter
 
 @enduml

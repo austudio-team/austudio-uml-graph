@@ -10,7 +10,7 @@ deactivate MenuItem
 EventEmitter -> AudioController: export()
 deactivate EventEmitter
 activate AudioController
-AudioController -> AudioController: generateAudioGraph()
+AudioController -> AudioController: generateAudioBlob()
 AudioController -> Browser: URL.createObjectURL(AudioArrayBuffer)
 AudioController <-- Browser: AudioBufferUrl: string
 AudioController -> Browser: HTMLAnchorElement.click()

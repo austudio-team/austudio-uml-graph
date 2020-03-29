@@ -23,6 +23,9 @@ activate Track
 Track -> EditorAction: audioDrop(channelId, offset)
 EditorAction -> EditorSaga: audioDropToSlice()
 EditorSaga -> ChannelAction: createSlice()
+ChannelAction -> ChannelSaga: addSliceSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_ADD_SLICE')
+EventEmitter -> AudioController: addSlice()
 deactivate Track
 deactivate Track
 

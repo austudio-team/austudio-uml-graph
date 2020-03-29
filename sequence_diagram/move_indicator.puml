@@ -25,8 +25,10 @@ activate Editor
 Editor -> EventEmitter: editorIndicatorShouldChange()
 deactivate Editor
 activate EventEmitter
-EventEmitter -> AudioController: changeProgress(0)
 EventEmitter -> ControlBar: indicatorChangeEffect
+activate ControlBar
+ControlBar -> AudioController: restartPlay();
+deactivate ControlBar
 deactivate EventEmitter
 deactivate Editor
 

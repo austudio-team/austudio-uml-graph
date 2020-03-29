@@ -7,16 +7,10 @@ User -> ControlBar: click stop button
 activate ControlBar
 ControlBar -> ControlBar: handleStopClick()
 activate ControlBar
-ControlBar -> ControlBar: requestPause()
-ControlBar -> EventEmitter: emit('requestStop')
-EventEmitter -> Editor: stopEffect
+ControlBar -> ControlBar: handlePauseClick()
+ControlBar -> EventEmitter: emit('editorIndicatorShouldChange', 0)
+ControlBar -> EventEmitter: emit('editorIndicatorChanged')
 deactivate ControlBar
-activate Editor
-Editor -> EventEmitter: editorIndicatorShouldChange(0)
-deactivate Editor
-activate EventEmitter
-EventEmitter -> AudioController: changeProgress(0)
-EventEmitter -> ControlBar: indicatorChangeEffect
-deactivate EventEmitter
+deactivate ControlBar
 
 @enduml

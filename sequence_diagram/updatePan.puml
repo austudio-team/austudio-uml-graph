@@ -5,5 +5,7 @@ User -> AudioChannel: drag pan slider
 activate AudioChannel
 AudioChannel -> AudioChannel: panHandler()
 AudioChannel -> ChannelAction: updatePan()
-
+ChannelAction -> ChannelSaga: updatePanSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_UPDATE_CHANNEL_PAN')
+EventEmitter -> AudioController: updatePan()
 @enduml

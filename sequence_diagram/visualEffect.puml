@@ -6,25 +6,23 @@ participant AudioController order 30
 
 User -> AudioBlock: user drop a audio slice
 activate AudioBlock
-AudioBlock -> AudioBlock: refreshGraph()
+AudioBlock -> AudioBlock: graphEffect()
 group Refresh Graph Process
 activate AudioBlock
-AudioBlock -> AudioController: generateVisualGraph()
-AudioController --> AudioBlock: graphBlob
+AudioBlock -> VisualEffect: getCanvas()
+VisualEffect --> AudioBlock: graphBase64
 deactivate AudioBlock
 end
+
 deactivate AudioBlock
 User -> EditorAction: updateZoom()
 activate EditorAction
-EditorAction -> AudioBlock: refreshGraph()
+AudioBlock -> AudioBlock: graphEffect()
 deactivate EditorAction
 
 User -> AudioBlock: stretch slice
 activate AudioBlock
-AudioBlock -> AudioBlock: mouseUpEffect()
-activate AudioBlock
-AudioBlock -> AudioBlock: refreshGraph()
-deactivate AudioBlock
+AudioBlock -> AudioBlock: graphEffect()
 deactivate AudioBlock
 
 @enduml

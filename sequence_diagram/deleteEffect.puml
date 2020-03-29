@@ -1,12 +1,12 @@
 @startuml
 actor User
 
-User -> AudioChannel: showDropdown()
-activate AudioChannel
-AudioChannel -> Dropdown: render
-deactivate AudioChannel
-User -> Dropdown: handleRemoveEffect()
+User -> DropdownItem: handleRemoveEffect()
 activate Dropdown
+Dropdown -> AudioEffectAction: closeEffectPanel()
+AudioEffectAction -> AudioEffectSaga: removeEffectSaga()
+AudioEffectSaga -> EventEmitter: emit('EFFECT_DELETE_EFFECT');
+EventEmitter -> AudioController: removeEffect();
 Dropdown -> AudioEffectAction: removeEffect()
 deactivate Dropdown
 @enduml

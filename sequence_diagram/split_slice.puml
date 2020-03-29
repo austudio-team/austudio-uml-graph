@@ -28,6 +28,11 @@ activate AudioBlock
 AudioBlock -> AudioBlock: mouseDownHandler()
 activate AudioBlock
 AudioBlock -> ChannelAction: splitSlice(channelId, sliceId, offset)
+ChannelAction -> ChannelSaga: splitSliceSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_UPDATE_SLICE')
+EventEmitter -> AudioController: updateSlice()
+ChannelSaga -> EventEmitter: emit('CHANNEL_ADD_SLICE')
+EventEmitter -> AudioController: addSlice()
 deactivate AudioBlock
 deactivate AudioBlock
 

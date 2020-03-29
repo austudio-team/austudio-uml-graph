@@ -12,6 +12,11 @@ activate AudioManage
 AudioManage -> LibraryAction: deleteAudio()
 activate LibraryAction
 LibraryAction -> ChannelSaga: deleteAudiosSliceEffect()
+activate ChannelSaga
+ChannelSaga -> ChannelAction: deleteSlice()
+ChannelSaga -> EventEmitter: emit('LIBRARY_DELETE_AUDIO')
+EventEmitter -> AudioController: deleteAudio()
+deactivate ChannelSaga
 deactivate LibraryAction
 deactivate AudioManage
 @enduml

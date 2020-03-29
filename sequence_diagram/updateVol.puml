@@ -5,5 +5,7 @@ User -> AudioChannel: drag vol slider
 activate AudioChannel
 AudioChannel -> AudioChannel: volHandler()
 AudioChannel -> ChannelAction: updateVol()
-
+ChannelAction -> ChannelSaga: updateVolSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_UPDATE_CHANNEL_VOL')
+EventEmitter -> AudioController: updateVol()
 @enduml

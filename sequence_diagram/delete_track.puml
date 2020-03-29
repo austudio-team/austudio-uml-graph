@@ -12,5 +12,8 @@ ContextMenu -> AudioChannel: deleteHandler
 deactivate ContextMenu
 AudioChannel -> ChannelAction: deleteChannel(index)
 deactivate AudioChannel
+ChannelAction -> ChannelSaga: deleteChannelSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_DELETE_CHANNEL')
+EventEmitter -> AudioController: removeChannel()
 
 @enduml

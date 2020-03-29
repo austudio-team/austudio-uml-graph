@@ -1,12 +1,17 @@
 @startuml
 actor User
 
-User -> AudioChannel: showDropdown()
-activate AudioChannel
-AudioChannel -> Dropdown: render
-deactivate AudioChannel
-User -> Dropdown: handleAddEffect()
+User -> Dropdown: handleContainerClick()
+User -> Dropdown: handleEffectMenu();
+activate Dropdown
+Dropdown -> ContextMenu: createContextMenu();
+deactivate Dropdown
+User -> ContextMenu: click
+ContextMenu -> Dropdown: handler();
 activate Dropdown
 Dropdown -> AudioEffectAction: addEffect()
 deactivate Dropdown
+AudioEffectAction -> AudioEffectSaga: addEffectSaga()
+AudioEffectSaga -> EventEmitter: emit('EFFECT_ADD_EFFECT');
+EventEmitter -> AudioController: addEffect();
 @enduml

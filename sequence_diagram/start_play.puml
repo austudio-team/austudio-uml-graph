@@ -8,15 +8,12 @@ ControlBar -> FunctionBarAction: requestPlay()
 ControlBar -> EventEmitter: emit('requestPlay')
 activate EventEmitter
 EventEmitter -> AudioController: play()
+ControlBar -> ControlBar: playRafEffect()
+ControlBar -> EventEmitter: emit('editorIndicatorChanged')
 deactivate ControlBar
-EventEmitter -> Editor: playingEffect()
+EventEmitter -> Editor: editorIndicatorChangedEffect()
 activate Editor
 Editor -> Editor: rerenderIndicator(false)
-activate Editor
-Editor -> ControlBar: indicatorChangeEffect
-note left: update time string
-Editor -> Editor: updateScrollX
-deactivate Editor
 deactivate Editor
 deactivate EventEmitter
 

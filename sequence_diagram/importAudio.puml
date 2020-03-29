@@ -11,6 +11,7 @@ deactivate Editor
 deactivate MenuItem
 EventEmitter -> AudioController: selectFile()
 activate AudioController
+AudioController -> AudioController: handleFile()
 AudioController -> LibraryAction: addAudio()
 deactivate AudioController
 deactivate EventEmitter

@@ -42,6 +42,9 @@ activate AudioBlock
   EventEmitter -> Editor: autoScrollXEffect
   AudioBlock -> EventEmitter: setDragging(false)
   AudioBlock -> ChannelAction: updateSlice()
+  ChannelAction -> ChannelSaga: updateSliceSaga()
+  AudioEffectSaga -> EventEmitter: emit('CHANNEL_UPDATE_SLICE');
+  EventEmitter -> AudioController: updateSlice();
 deactivate AudioBlock
 deactivate AudioBlock
 

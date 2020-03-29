@@ -5,12 +5,18 @@ User -> AudioChannel: click solo button
 activate AudioChannel
 AudioChannel -> AudioChannel: handleSolo()
 AudioChannel -> ChannelAction: updateSolo(channelId, !solo)
+ChannelAction -> ChannelSaga: updateChannelSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_UPDATE_CHANNEL')
+EventEmitter -> AudioController: restartPlay()
 deactivate
 
 User -> AudioChannel: click mute button
 activate AudioChannel
 AudioChannel -> AudioChannel: handleMute()
 AudioChannel -> ChannelAction: updateMute(channelId, !mute)
+ChannelAction -> ChannelSaga: updateChannelSaga()
+ChannelSaga -> EventEmitter: emit('CHANNEL_UPDATE_CHANNEL')
+EventEmitter -> AudioController: restartPlay()
 deactivate
 
 User -> AudioChannel: click record button
